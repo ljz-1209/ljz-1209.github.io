@@ -213,6 +213,60 @@ def draw_schematic():
     print('[图] 电路图已保存: circuits/mos_amplifier_circuit.png')
 
 
+def draw_models():
+    """按题目要求画两张等效图：直流通路 与 小信号等效模型"""
+    import schemdraw
+    import schemdraw.elements as elm
+
+    # ---- 直流通路：Cb1 开路，只剩偏置回路 ----
+    d = schemdraw.Drawing()
+    d.config(unit=2.0, fontsize=11)
+    d += elm.Label().at((0, 4.7)).label('直流通路（Cb1 开路，只有直流偏置）', fontsize=12)
+    d += (q := elm.NMos(bulk=False).at((5, 0)).label('T', loc='bottom'))
+    d += elm.Ground().at(q.source)
+    d += elm.Line().at(q.drain).up(0.3)
+    d += elm.Resistor().up().label('Rd\n2kΩ')
+    d += (nv := elm.Dot())
+    d += elm.Line().at(nv.center).right(1.2).label('V_DD=5V', loc='right')
+    d += elm.Line().at(nv.center).left(4.5)
+    d += (n1 := elm.Dot())
+    d += elm.Resistor().at(n1.center).down().toy(q.gate).label('Rg1\n60kΩ')
+    d += (ng := elm.Dot())
+    d += elm.Line().at(ng.center).right().tox(q.gate)
+    d += elm.Line().at(q.gate).left().tox(ng.center.x)
+    d += elm.Resistor().at(ng.center).down().toy(0).label('Rg2\n40kΩ', loc='bottom')
+    d += elm.Ground()
+    d.save(str(CIRCUITS / 'mos_dc_path.png'), dpi=150, transparent=False)
+
+    # ---- 小信号等效模型：Cb1 短路，VDD 视为交流地 ----
+    d = schemdraw.Drawing()
+    d.config(unit=2.0, fontsize=11)
+    d += elm.Label().at((0.3, 4.4)).label('小信号等效模型（Cb1 短路，VDD 视为交流地）', fontsize=12)
+    # 底部公共源极端
+    d += elm.Line().at((0, 0)).right(4.6)
+    d += elm.Dot().at((0, 0))
+    d += elm.Ground().at((0, 0))
+    d += elm.Label().at((0.2, 0.3)).label('s')
+    # 输入回路：v_gs
+    d += (vgs := elm.SourceSin().up().at((0, 0)))
+    d += elm.Line().at((0, 2)).right(1.3)
+    d += elm.Dot()
+    d += elm.Label().at((1.35, 2.25)).label('g')
+    d += elm.Label().at(vgs.center).label('$v_{gs}=v_{i}$', loc='left', ofst=0.25)
+    # 漏极节点：受控源 gm·vgs、ro、Rd、v_out
+    d += (gm := elm.SourceControlledI().down().at((3.0, 2.0)))
+    d += elm.Label().at(gm.center).label('$g_m\\,v_{gs}$', loc='left', ofst=0.25)
+    d += elm.Resistor().up().at((3.0, 2.0)).label('$R_d$')
+    d += elm.Ground().at((3.0, 3.9)).label('V$_{DD}$（交流接地）', loc='right')
+    d += elm.Dot().at((3.0, 2.0))
+    d += elm.Line().at((3.0, 2.0)).right(1.6)
+    d += (nd := elm.Dot())
+    d += elm.Resistor().down().at(nd.center).toy(0).label('$r_o$')
+    d += elm.Line().at(nd.center).right(0.8).label('$v_{out}$', loc='right')
+    d.save(str(CIRCUITS / 'mos_small_signal.png'), dpi=150, transparent=False)
+    print('[图] 直流通路与小信号模型已保存')
+
+
 def write_results(v_gs, i_d, v_ds, sat, av_sim, gm_sim, vin_pp, vout_pp):
     lines = [
         '# ③ NMOS 共源放大 —— 理论 vs 仿真',
@@ -247,6 +301,7 @@ def write_results(v_gs, i_d, v_ds, sat, av_sim, gm_sim, vin_pp, vout_pp):
 
 if __name__ == '__main__':
     draw_schematic()
+    draw_models()
     v_gs, i_d, v_ds, sat = operating_point()
     av_sim, gm_sim, vin_pp, vout_pp = transient()
     transfer_curve()

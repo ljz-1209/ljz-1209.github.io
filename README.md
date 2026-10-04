@@ -86,6 +86,8 @@ AI 的思路就是 1.6 里说的那套：先模拟、确认安全再吃，不安
 
 τ 的仿真值取方波上升沿后输出升到 63.2% 的时间，fc 取波特图上增益掉到 -3dB 的位置。方波响应是标准的充放电指数曲线，波特图按 -20dB/十倍频下降，和理论一致。
 
+![RC 电路图](pyspice/circuits/rc_lowpass_circuit.png)
+
 ![方波响应](pyspice/plots/rc_lowpass_transient.png)
 
 ![波特图](pyspice/plots/rc_lowpass_bode.png)
@@ -104,6 +106,10 @@ AI 的思路就是 1.6 里说的那套：先模拟、确认安全再吃，不安
 | 4.7 kΩ | 5.9977 V | 5.9977 V | 5.9977 V |
 
 替换前后完全一样，定理得证。这里踩过一个坑：第一次把等效电压源接在两个悬空节点上，没构成回路，仿真出来全是 0，画了电流路径图才找到问题。
+
+![含源二端网络（端口 a-地）](pyspice/circuits/thevenin_circuit.png)
+
+![戴维南等效电路](pyspice/circuits/thevenin_equivalent.png)
 
 ![负载对比](pyspice/plots/thevenin_load_compare.png)
 
@@ -126,6 +132,14 @@ AI 的思路就是 1.6 里说的那套：先模拟、确认安全再吃，不安
 | Av | −3.20 | −3.298 | −3.305 |
 
 含 λ 的手算和仿真基本重合；忽略 λ 会差 6% 左右，主要是 ro 在分流。输出和输入反相，20mVpp 进去、66mVpp 出来，增益约 −3.3。
+
+按要求画的等效图：直流通路就是把 Cb1 断开，剩下的只是偏置回路（VDD 经 Rg1、Rg2 分压，经 Rd 到管子）；小信号模型里 Cb1 短路、VDD 当成交流地，漏极上只剩 gm·vgs、ro、Rd 三个元件，Av = −gm(Rd∥ro) 一眼就能看出来。
+
+![放大电路原理图](pyspice/circuits/mos_amplifier_circuit.png)
+
+![直流通路](pyspice/circuits/mos_dc_path.png)
+
+![小信号等效模型](pyspice/circuits/mos_small_signal.png)
 
 ![输入输出波形](pyspice/plots/mos_transient.png)
 
