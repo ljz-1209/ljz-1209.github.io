@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汤涵轩 - 个人主页</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // 渲染前恢复主题，避免刷新闪烁
+        (function () {
+            try {
+                var t = localStorage.getItem('site_theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.dataset.theme = t;
+                }
+            } catch (e) { }
+        })();
+    </script>
+</head>
+<body>
+    <button class="theme-btn" id="themeBtn" title="切换深色 / 浅色">🌙</button>
+
+    <header class="hero">
+        <div class="avatar">汤</div>
+        <h1>你好，我是汤涵轩</h1>
+        <p class="subtitle">微电子科学与工程专业 · 热爱创新的学生</p>
+        <nav class="nav">
+            <a href="#about">关于我</a>
+            <a href="#interests">兴趣爱好</a>
+            <a href="#projects">我的作品</a>
+            <a href="#contact">联系方式</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about" class="card">
+            <h2>关于我</h2>
+            <p>一名 i 人，对 AI 创新方面富有兴趣，希望加入集协共同创新、一起折腾有趣的东西。</p>
+        </section>
+
+        <section id="interests" class="card">
+            <h2>兴趣爱好</h2>
+            <ul class="hobby-list">
+                <li>🎵 音乐</li>
+                <li>📸 摄影</li>
+                <li>💻 编程</li>
+            </ul>
+        </section>
+
+        <section id="projects" class="card">
+            <h2>我的作品</h2>
+            <div class="project-list">
+                <a class="project" href="games/snake.html">
+                    <div class="project-title">🐍 贪吃蛇 · AI 高分版 <span class="tag">HTML/CSS/JS 单文件</span></div>
+                    <p>考核小游戏作品：阶段一是可以键盘 / 触屏直接玩的完整版本；阶段二加入 BFS 寻路 AI，
+                       会评估"吃完会不会把自己困死"，自动演示连吃 15 个食物不死。带计分、主题切换和最近 10 局战绩。</p>
+                </a>
+                <a class="project" href="https://github.com/ljz-1209/ljz-1209.github.io/tree/main/pyspice">
+                    <div class="project-title">⚡ PySpice 电路仿真 ×3 <span class="tag">Python</span></div>
+                    <p>进阶挑战作品：RC 低通滤波、戴维南定理验证、NMOS 共源放大。每个电路都有手算推导、
+                       仿真波形和「理论 vs 仿真」对比表，误差都在 1% 以内。</p>
+                </a>
+                <a class="project" href="个人简介/汤涵轩-个人简介.pdf">
+                    <div class="project-title">📄 个人简介 PDF <span class="tag">1 页</span></div>
+                    <p>教育背景、技能、兴趣方向与联系方式，也可以在仓库根目录找到它。</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="contact" class="card">
+            <h2>联系方式</h2>
+            <p>邮箱：<a href="mailto:3212565632@qq.com">3212565632@qq.com</a></p>
+            <p>GitHub：<a href="https://github.com/ljz-1209" target="_blank" rel="noopener">ljz-1209</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 汤涵轩 · 用 HTML/CSS 手写 · 托管于 GitHub Pages</p>
+    </footer>
+
+    <script>
+        // 深色 / 浅色切换，刷新后保留（localStorage）
+        const btn = document.getElementById('themeBtn');
+        const root = document.documentElement;
+
+        function applyTheme(t) {
+            root.dataset.theme = t;
+            btn.textContent = t === 'dark' ? '☀️' : '🌙';
+        }
+        applyTheme(root.dataset.theme === 'dark' ? 'dark' : 'light');
+
+        btn.addEventListener('click', () => {
+            const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+            try { localStorage.setItem('site_theme', next); } catch (e) { }
+        });
+    </script>
+</body>
+</html>

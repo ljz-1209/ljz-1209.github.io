@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>汤涵轩 - 个人简介</title>
+<style>
+  @page { size: 794px 1123px; margin: 0; }
+  html, body { margin: 0; padding: 0; width: 794px; background: #f3f4f4; }
+  * { box-sizing: border-box; }
+
+  :root {
+    --page-bg: #f3f4f4;
+    --section-bg: #e7e9ea;
+    --card-bg: #ffffff;
+    --primary: #405560;
+    --primary-2: #516974;
+    --icon: #4788a9;
+    --accent: #cb3a53;
+    --text: #141616;
+    --muted: #747a7e;
+    --border: #c8d1d6;
+  }
+
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+    color: var(--text);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 794px;
+    height: 1123px;
+    position: relative;
+    background: var(--page-bg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header band ── */
+  .header {
+    background: linear-gradient(135deg, #405560 0%, #516974 100%);
+    color: #ffffff;
+    padding: 34px 48px 28px 48px;
+    position: relative;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: 48px; top: 44px;
+    width: 120px; height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .kicker {
+    font-size: 13px;
+    letter-spacing: 6px;
+    opacity: 0.75;
+    margin-bottom: 10px;
+  }
+  .name {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    line-height: 1.15;
+  }
+  .headline {
+    margin-top: 10px;
+    font-size: 17px;
+    font-weight: 400;
+    opacity: 0.9;
+    letter-spacing: 1px;
+  }
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.10);
+  }
+  .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: #ffffff; opacity: 0.8; }
+
+  /* ── Body two columns ── */
+  .body {
+    flex: 1;
+    display: flex;
+    gap: 0;
+    padding: 26px 48px 26px 48px;
+  }
+  .main { flex: 1.62; padding-right: 28px; }
+  .side {
+    flex: 1;
+    background: var(--section-bg);
+    border-radius: 14px;
+    padding: 22px 22px;
+    align-self: flex-start;
+  }
+
+  .sec { margin-bottom: 20px; }
+  .sec:last-child { margin-bottom: 0; }
+  .sec-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--primary);
+    margin-bottom: 11px;
+  }
+  .sec-title::before {
+    content: "";
+    width: 8px; height: 18px;
+    border-radius: 3px;
+    background: var(--accent);
+  }
+  .sec-title small {
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    margin-left: 2px;
+  }
+
+  .about-text {
+    font-size: 13px;
+    line-height: 1.75;
+    color: #2b3134;
+    text-align: justify;
+  }
+
+  .edu-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--icon);
+    border-radius: 10px;
+    padding: 13px 16px;
+  }
+  .edu-school { font-size: 14.5px; font-weight: 700; }
+  .edu-major { font-size: 12.5px; color: #2b3134; margin-top: 3px; }
+  .edu-meta { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+  .edu-courses { font-size: 12px; color: #2b3134; margin-top: 7px; line-height: 1.65; }
+  .edu-courses b { color: var(--primary); font-weight: 700; }
+
+  .proj {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+  }
+  .proj:last-child { margin-bottom: 0; }
+  .proj-head { display: flex; align-items: baseline; justify-content: space-between; }
+  .proj-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .proj-tag { font-size: 11px; color: var(--icon); border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; white-space: nowrap; }
+  .proj-desc { font-size: 12px; line-height: 1.65; color: #3a4145; margin-top: 5px; text-align: justify; }
+
+  .intent-text {
+    font-size: 13px;
+    line-height: 1.75;
+    color: #2b3134;
+    text-align: justify;
+  }
+  .intent-text b { color: var(--accent); }
+
+  /* ── Sidebar ── */
+  .side .sec-title { color: var(--primary-2); }
+  .skill { margin-bottom: 10px; }
+  .skill:last-child { margin-bottom: 0; }
+  .skill-row { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 6px; }
+  .skill-row span:last-child { color: var(--muted); font-size: 11.5px; }
+  .bar { height: 7px; border-radius: 4px; background: #d8dcde; overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 4px; background: var(--icon); }
+
+  .tag-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 12px;
+    padding: 5px 13px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    color: var(--primary);
+  }
+  .tag.hot { background: var(--primary); border-color: var(--primary); color: #ffffff; }
+
+  .fact-list { list-style: none; margin: 0; padding: 0; }
+  .fact-list li {
+    position: relative;
+    padding-left: 16px;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #2b3134;
+    margin-bottom: 6px;
+  }
+  .fact-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 8px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--icon);
+  }
+
+  .foot-note {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* Browser preview auto-scale (print unaffected) */
+  @media screen {
+    html {
+      height: auto;
+      display: flex;
+      justify-content: center;
+      background: #f3f4f4;
+    }
+    body {
+      transform-origin: top center;
+      scale: min(1, calc(100vw / 794));
+      margin: 0 auto;
+      box-shadow: 0 0 60px rgba(0,0,0,0.15);
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="kicker">PERSONAL PROFILE · 个人简介</div>
+    <div class="name">汤涵轩</div>
+    <div class="headline">微电子专业在读 · AI 技术爱好者 · 申请加入集成电路学院创新协会</div>
+    <div class="contact-row">
+      <span class="chip"><span class="dot"></span>GitHub:github.com/ljz-1209</span>
+      <span class="chip"><span class="dot"></span>邮箱:3212565632@qq.com</span>
+      <span class="chip"><span class="dot"></span>年级:大一(2026 级)</span>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="main">
+
+      <div class="sec">
+        <div class="sec-title">关于我 <small>ABOUT ME</small></div>
+        <div class="about-text">
+          集成电路学院微电子专业在读,对人工智能与芯片设计的交叉方向抱有浓厚兴趣,平时喜欢动手写代码、复现论文和折腾开发板。相信"懂算法的人也要懂硬件",希望在最贴近产业的学院平台里,和志同道合的伙伴一起把想法做成真正能跑起来的东西。
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-title">教育背景 <small>EDUCATION</small></div>
+        <div class="edu-card">
+          <div class="edu-school">广东工业大学 · 集成电路学院</div>
+          <div class="edu-major">微电子科学与工程专业 · 本科在读(大一)</div>
+          <div class="edu-meta">2026 年 9 月 — 至今(预计 2030 年 6 月毕业)</div>
+          <div class="edu-courses"><b>主修课程:</b>半导体物理、数字电路与逻辑设计、模拟电路、信号与系统、C 语言程序设计</div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-title">项目与实践 <small>PROJECTS</small></div>
+        <div class="proj">
+          <div class="proj-head">
+            <span class="proj-name">GitHub 个人仓库 · 学习记录与实践</span>
+            <span class="proj-tag">持续进行</span>
+          </div>
+          <div class="proj-desc">在 github.com/ljz-1209 持续维护个人代码仓库,记录课程实验、算法练习与工具脚本,熟悉 Git 版本管理与开源协作的基本流程。</div>
+        </div>
+        <div class="proj">
+          <div class="proj-head">
+            <span class="proj-name">AI 工具辅助编程实践</span>
+            <span class="proj-tag">AI Coding</span>
+          </div>
+          <div class="proj-desc">熟练使用 AI 工具进行代码编辑与调试,能将想法快速落地为可运行的程序,并借助其高效完成课程任务与个人小项目的开发。</div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-title">加入意愿 <small>WHY ME</small></div>
+        <div class="intent-text">
+          希望加入<b>集成电路学院创新协会</b>,在学长学姐的带领下参与真实项目,把课堂知识转化为工程能力;同时愿意承担协会的日常工作与技术分享,和团队一起成长。<b>时间可保证,态度请放心。</b>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="side">
+
+      <div class="sec">
+        <div class="sec-title">技能 <small>SKILLS</small></div>
+        <div class="skill">
+          <div class="skill-row"><span>Python</span><span>入门</span></div>
+          <div class="bar"><i style="width:35%"></i></div>
+        </div>
+        <div class="skill">
+          <div class="skill-row"><span>C / C++</span><span>掌握</span></div>
+          <div class="bar"><i style="width:75%"></i></div>
+        </div>
+        <div class="skill">
+          <div class="skill-row"><span>Verilog / 数字电路</span><span>入门进阶中</span></div>
+          <div class="bar"><i style="width:55%"></i></div>
+        </div>
+        <div class="skill">
+          <div class="skill-row"><span>AI 工具辅助编程</span><span>熟练</span></div>
+          <div class="bar"><i style="width:80%"></i></div>
+        </div>
+        <div class="skill">
+          <div class="skill-row"><span>Git / Linux</span><span>熟练</span></div>
+          <div class="bar"><i style="width:80%"></i></div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-title">兴趣方向 <small>INTERESTS</small></div>
+        <div class="tag-wrap">
+          <span class="tag hot">数字 IC 设计</span>
+          <span class="tag">AI 硬件加速</span>
+          <span class="tag">嵌入式开发</span>
+          <span class="tag">开源社区</span>
+          <span class="tag">芯片架构</span>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-title">快速了解我 <small>FACTS</small></div>
+        <ul class="fact-list">
+          <li>自学能力强:习惯通过文档、论文和开源项目解决问题</li>
+          <li>执行力在线:想法会尽快写成代码验证,而不是停留在嘴上</li>
+          <li>乐于分享:愿意在协会内做技术分享,帮新同学上手</li>
+          <li>时间充裕:每周可投入协会活动与项目的时间 ≥ 10 小时</li>
+        </ul>
+      </div>
+
+      <div class="sec">
+        <div class="sec-title">获奖 / 荣誉 <small>AWARDS</small></div>
+        <ul class="fact-list">
+          <li>全国高中生创新能力大赛 · 二等奖</li>
+        </ul>
+      </div>
+
+      <div class="foot-note">
+        本页信息以实际为准 · 更新于 2026 年 10 月
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
